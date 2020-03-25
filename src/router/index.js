@@ -47,6 +47,7 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    meta: { title: '攻略' },
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
@@ -54,29 +55,60 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
-  
   {
     path: '/gameRaiderss',
     component: Layout,
     meta: { title: '攻略' },
+    redirect: '/gameRaiderss/grDestiny',
     children: [
       {
         path: 'grDestiny',
         name: 'grDestiny',
-        component: () => import('@/views/aion/gameRaiders'),
-        meta: { title: 'Destiny3.5'}
+        component: () => import('@/views/aion/gameRaiders/destiny/index'),
+        meta: { title: 'Destiny3.5' }
       },
       {
         path: 'grMyAion',
         name: 'grMyAion',
-        component: () => import('@/views/aion/gameRaiders'),
-        meta: { title: 'MyAion4.6'}
+        component: () => import('@/views/aion/gameRaiders/myaion/index'),
+        meta: { title: 'MyAion4.6' }
       },
       {
         path: 'grGC',
         name: 'grGC',
-        component: () => import('@/views/aion/gameRaiders'),
-        meta: { title: 'GC4.6'}
+        component: () => import('@/views/aion/gameRaiders/gc/index'),
+        meta: { title: 'GC4.6' }
+      }
+    ]
+  },
+  {
+    path: '/exchange',
+    component: Layout,
+    meta: { title: '交易' },
+    children: [
+      {
+        path: 'exDestiny',
+        name: 'exDestiny',
+        component: () => import('@/views/aion/exchange/exchangeView'),
+        meta: { title: 'Destiny3.5' }
+      },
+      {
+        path: 'exMyAion',
+        name: 'exMyAion',
+        component: () => import('@/views/aion/exchange/exchangeView'),
+        meta: { title: 'MyAion4.6' }
+      },
+      {
+        path: 'exGC',
+        name: 'exGC',
+        component: () => import('@/views/aion/exchange/exchangeView'),
+        meta: { title: 'GC4.6' }
+      },
+      {
+        path: '/accDetail',
+        name: 'accDetail',
+        component: () => import('@/views/aion/exchange/components/accDetail'),
+        meta: { title: 'GC4.6' }
       }
     ]
   },

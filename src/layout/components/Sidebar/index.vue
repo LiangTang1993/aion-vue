@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row type="flex" justify="space-between" style="height:55px">
-      <el-col :span="2"><img :src="titleImg" class="title-img"></el-col>
+      <el-col :span="4"><img :src="titleImg" class="title-img"></el-col>
       <el-scrollbar wrap-class="scrollbar-wrapper">
         <el-menu
           :default-active="activeMenu"
@@ -16,7 +16,8 @@
           <sidebar-item v-for="route in routes" :key="route.path" style="float:left" :item="route" :base-path="route.path" />
         </el-menu>
       </el-scrollbar>
-      <el-col :span="2"><div class="background:red" />
+
+      <el-col :span="4"><div class="background:red" />
         <div class="right-menu">
           <el-dropdown class="avatar-container" trigger="hover">
             <div class="avatar-wrapper">
