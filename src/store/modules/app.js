@@ -6,7 +6,7 @@ const state = {
     withoutAnimation: false
   },
   device: 'desktop',
-  imgurl: 'https://res.aionlegend.net/aionRes'
+  imgurl: 'http://res.aionlegend.net/aionRes'
 }
 
 const mutations = {
