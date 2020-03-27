@@ -46,11 +46,11 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/home',
     meta: { title: '攻略' },
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
+      path: 'home',
+      name: 'Home',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
