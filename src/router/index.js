@@ -62,6 +62,12 @@ export const constantRoutes = [
     redirect: '/gameRaiderss/grDestiny',
     children: [
       {
+        path: 'grGC',
+        name: 'grGC',
+        component: () => import('@/views/aion/gameRaiders/gc/index'),
+        meta: { title: 'GC4.6' }
+      },
+      {
         path: 'grDestiny',
         name: 'grDestiny',
         component: () => import('@/views/aion/gameRaiders/destiny/index'),
@@ -74,10 +80,10 @@ export const constantRoutes = [
         meta: { title: 'MyAion4.6' }
       },
       {
-        path: 'grGC',
-        name: 'grGC',
-        component: () => import('@/views/aion/gameRaiders/gc/index'),
-        meta: { title: 'GC4.6' }
+        path: '/vpn',
+        name: 'vpn',
+        component: () => import('@/views/aion/gameRaiders/vpn/index'),
+        meta: { title: 'vpn' }
       }
     ]
   },
