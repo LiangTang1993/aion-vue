@@ -3,17 +3,17 @@
     <el-row type="flex" justify="center" class="form-nobt">
       <div style="width:1200px;font-size: 20px;">
         <el-form :model="formData" label-width="100px" style="width:1200px;font-size: 20px;">
-          <el-form-item label="标题" prop="title">
-            <span>{{ formData.title }}</span>
+          <el-form-item label="标题" prop="name">
+            <span>{{ formData.name }}</span>
           </el-form-item>
           <el-form-item label="服务器">
-            <span>{{ servers[type] }}</span>
+            <span>{{ servers[formData.server_id] }}</span>
+          </el-form-item>
+          <el-form-item label="职业" prop="occ">
+            <span>{{ occArr[formData.occ] }}</span>
           </el-form-item>
           <el-form-item label="种族" prop="faction">
-            <span>{{ formData.faction }}</span>
-          </el-form-item>
-          <el-form-item label="角色名" prop="nickname">
-            <span>{{ formData.nickname }}</span>
+            <span>{{ formData.faction===1?'天族':'魔族' }}</span>
           </el-form-item>
           <el-form-item label="装备" prop="equipment">
             <span>{{ formData.equipment }}</span>
@@ -22,10 +22,13 @@
             <span>{{ formData.pvp }}</span>
           </el-form-item>
           <el-form-item label="其他" prop="note">
-            <span>{{ formData.note }}</span>
+            <span>{{ formData.other }}</span>
           </el-form-item>
           <el-form-item label="联系方式" prop="contact">
-            <span>{{ formData.contact }}</span>
+            <span>{{ formData.user_contact }}</span>
+          </el-form-item>
+          <el-form-item label="浏览次数" prop="click_num">
+            <span>{{ formData.click_num }}</span>
           </el-form-item>
         </el-form>
         <el-row v-if="imgArr.length>0">
@@ -40,65 +43,37 @@
 </template>
 
 <script>
-/*eslint-disable*/
+import { getGoodsItem } from '@/api/aion/exchange.js'
 export default {
   data() {
     return {
       formData: {
-        
+
       },
-      tableData:[],
-      alist:[],
-      type:'',
-      servers:['','destiny','myaion','gc'],
-      imgArr:[]
+      occArr: ['守护星', '剑星', '魔道星', '精灵星', '杀星', '弓星', '治愈星', '护法星', '枪炮星', '机甲星', '吟游星', '彩绘星'],
+      tableData: [],
+      alist: [],
+      type: '',
+      servers: ['', 'destiny', 'myaion', 'gc'],
+      imgArr: []
     }
   },
   mounted() {
     this.type = this.$route.query.type
-    if (destinyAl) {
-      switch (this.$route.query.type) {
-        case '1':
-          destinyAl.forEach(e => {
-            if (!e.title) {
-              if (e.equipment1) {
-                e.equipment = e.equipment + ' ' + e.equipment1
-              }
-              if (e.equipment2) {
-                e.equipment = e.equipment + ' ' + e.equipment2
-              }
-              if (e.equipment3) {
-                e.equipment = e.equipment + ' ' + e.equipment3
-              }
-              if (e.pvp && e.pvp1) {
-                e.pvp = e.pvp + '  ' + e.pvp1
-              }
-              e.title = e.occ + ' ' + e.gender + e.equipment
-              e.createTime = e.createTime.substring(0, 10)
-            }
-          })
-          this.alist = destinyAl
-          break
-        case '2':
-          this.alist = myaionAl
-          break
-        case '3':
-          this.alist = gcAl
-          break
-        default:
-          break
-      }
-      this.tableData = this.alist
-      this.formData= this.tableData.filter(e=>e.id===parseInt(this.$route.query.id))[0]
-      this.imgArr = []
-      if (this.formData.picNum && this.formData.picNum > 0) {
-        for (let i = 0; i < this.formData.picNum; i++) {
-          this.imgArr.push('http://res.aionlegend.net/aionRes/seller/'+ this.$route.query.id + '/' + i + '.png')
-        }
-      }
-      console.log(this.imgArr);
-      
-    }
+    this.id = this.$route.query.id
+    getGoodsItem(this.id).then(res => {
+      this.formData = res.data
+      res.data.images.forEach(e => {
+        this.imgArr.push('http://res.aionlegend.net' + e.image)
+      })
+    })
+    // this.imgArr = []
+    // if (this.formData.picNum && this.formData.picNum > 0) {
+    //   for (let i = 0; i < this.formData.picNum; i++) {
+    //     this.imgArr.push('http://res.aionlegend.net/aionRes/seller/' + this.$route.query.id + '/' + i + '.png')
+    //   }
+    // }
+    // console.log(this.imgArr)
   }
 }
 </script>

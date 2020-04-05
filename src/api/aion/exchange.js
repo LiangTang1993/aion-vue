@@ -8,3 +8,42 @@ export function getgood(data) {
     data
   })
 }
+
+export function insertGoods(data) {
+  return request({
+    url: 'goods/',
+    method: 'post',
+    data
+  })
+}
+
+export function selectGoods(data) {
+  return request({
+    url: 'goods/',
+    method: 'get',
+    params: data
+  })
+}
+
+export function getGoodsItem(id) {
+  return request({
+    url: 'goods/' + id,
+    method: 'get'
+  })
+}
+
+export function updateGoods(data) {
+  return request({
+    url: 'goods/' + data.id + '/',
+    method: 'put',
+    data: data
+  })
+}
+
+export function InsertGoodsImage(data) {
+  return request({
+    url: 'goodsImage/',
+    method: 'post',
+    data: data
+  })
+}

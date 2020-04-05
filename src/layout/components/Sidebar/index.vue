@@ -17,9 +17,11 @@
         </el-menu>
       </el-scrollbar>
 
-      <el-col :span="4"><div class="background:red" />
+      <el-col :span="4">
+
         <div class="right-menu">
-          <el-dropdown class="avatar-container" trigger="hover">
+          <el-link v-if="!userData.username" style="font-size:20px;color:#d07c35;margin:15px 10px 0 0" :underline="false" @click="login">登陆</el-link>
+          <el-dropdown v-if="userData.username" class="avatar-container" trigger="hover">
             <div class="avatar-wrapper">
               <img :src="userImg" class="user-avatar">
               <i class="el-icon-caret-bottom" />
@@ -28,6 +30,9 @@
               <router-link to="/">
                 <el-dropdown-item>
                   个人信息
+                </el-dropdown-item>
+                <el-dropdown-item v-if="userData.username" divided @click.native="logout">
+                  <span style="display:block;">退出</span>
                 </el-dropdown-item>
               </router-link>
             </el-dropdown-menu>
@@ -63,6 +68,9 @@ export default {
     routes() {
       return this.$router.options.routes
     },
+    userData() {
+      return this.$store.state.user.userData
+    },
     activeMenu() {
       const route = this.$route
       const { meta, path } = route
@@ -80,6 +88,15 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch('user/logout')
+      // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    login() {
+      this.$router.push({ path: 'login' })
     }
   }
 }

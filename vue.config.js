@@ -24,12 +24,23 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
+    
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    proxy: {
+      // 开发环境下的请求代理与处理跨域
+      '/apis': {
+        target: 'http://127.0.0.1:8000/', // 代理域名
+        changeOrigin: true, // 支持跨域
+        pathRewrite: {
+          '^/apis': ''
+        }
+      }
+    },
     port: port,
     open: true,
     overlay: {
