@@ -2,7 +2,7 @@
   <div>
     <el-row type="flex" justify="center" class="form-nobt">
       <div style="width:1200px;font-size: 20px;">
-        <el-form :model="formData" label-width="100px" style="width:1200px;font-size: 20px;">
+        <el-form :model="formData" label-width="100px" class="main-width" style="font-size: 20px;">
           <el-form-item label="标题" prop="name">
             <span>{{ formData.name }}</span>
           </el-form-item>

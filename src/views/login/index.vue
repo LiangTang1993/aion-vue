@@ -94,7 +94,7 @@
               placeholder="验证码"
               @keyup.enter.native="handleReg"
             />
-            <el-button style="width:120px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);float:right;margin-top:3px;" @click="getCode">获取验证码</el-button>
+            <el-button style="width:110px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);float:right;margin-top:3px;" @click="getCode">获取验证码</el-button>
           </el-form-item>
           <el-button style="width:100%;margin-bottom:30px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);" @click.native.prevent="handleReg">注册</el-button>
         </el-form>
@@ -190,12 +190,13 @@ export default {
 
     },
     handleReg() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.regForm.validate(valid => {
         if (valid) {
           createUser(this.regForm).then(res => {
-            debugger
-            if (res.data.code === 201) {
+            if (res.data.name) {
               this.$message({ type: 'success', message: '注册成功！' })
+            } else {
+              this.$message.error(res.data)
             }
           })
         }
@@ -267,10 +268,11 @@ $cursor: #fff;
     color: #454545;
   }
   .login-tabs{
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
     position: absolute;
-    top: 200px;
-    right: 50px;
+    top: calc(20vh);
+    right: 10px;
   }
 }
 </style>

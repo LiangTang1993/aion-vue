@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard-container">
-    <el-row v-for="item in serversList" class="server-row" type="flex" justify="center">
-      <el-col style="width:1200px">
-        <el-row>
-          <el-col :span="12">
+    <el-row v-for="item in serversList" :key="item.name" class="server-row" type="flex" justify="center">
+      <el-col class="main-width">
+        <el-row class="home-form">
+          <el-col :span="12" :xs="24">
             <img :src="item.logo" alt="" height="200px">
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :xs="24">
             <el-form :model="item" class="form-nobt" label-width="120px">
               <el-form-item label="服务器名称:">{{ item.name }}</el-form-item>
               <el-form-item label="版本">{{ item.version }}</el-form-item>
@@ -16,12 +16,7 @@
                 <div style="line-height:20px;padding-top:10px">
                   <el-link type="primary" href="https://gamecoast.net/refer/2465b0b515bf0135aaee0f12e9686657">点我注册</el-link> 需要翻墙注册不了联系群主帮注册
                 </div>
-            </el-form-item>
-            <el-form-item v-if="item.name==='gamecoast'" label="下载链接">
-              <div style="line-height:20px;padding-top:10px">
-                <el-link type="primary" href="http://res.aionlegend.net/aionRes/data/gcaion.torrent">点我下载</el-link> 用比特彗星下载才行 群里有文件
-              </div>
-          </el-form-item>
+              </el-form-item>
             </el-form>
           </el-col>
         </el-row>

@@ -147,16 +147,52 @@
   .el-menu--collapse .el-menu .el-submenu {
     min-width: $sideBarWidth !important;
   }
-
+  .main-width{
+    width: 1200px;
+  }
   // mobile responsive
   .mobile {
     .main-container {
       margin-left: 0px;
+      max-height: calc(100vh - 80px);
+      overflow: auto;
     }
-
+    .dashboard-container{
+      margin: 0;
+    }
+    .main-width{
+      width: 100%;
+    }
+    .login-tabs{
+      width: 200px;
+      position: absolute;
+      top: 200px;
+      right: 10px;
+    }
+    .mobile-div{
+      width: 100%;
+    }
+    .mobile-column-hide{
+      display: none;
+    }
+    .home-form{
+      img{
+        width: 100%;
+        height: auto;
+      }
+    }
+    .server-row{
+      height: 400px;
+    }
     .sidebar-container {
       transition: transform .28s;
-      width: $sideBarWidth !important;
+      width: 100% !important;
+      .title-img{
+        margin-left: 5px;
+        margin-top: 15px;
+        width: 60px;
+        height: 30px;
+      }
     }
 
     // &.hideSidebar {

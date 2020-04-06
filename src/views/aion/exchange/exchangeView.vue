@@ -1,23 +1,8 @@
 <template>
   <div>
     <el-row style="text-align: center;">
-      <span style="color: red;">登录账号金币 帐号担保 代充点券 入群联系群主 qq微信同号173708480</span>
-      <el-link
-        type="primary"
-        href="https://docs.qq.com/form/edit/DWXZuQnVYUFJZeVNl#/edit"
-        target="_blank"
-      >点击出售账号</el-link>
-      <el-link
-        type="primary"
-        href="https://docs.qq.com/form/edit/DWXZuQnVYUFJZeVNl#/edit"
-        target="_blank"
-      >点击出售基纳</el-link>
-      <el-link
-        type="primary"
-        href="http://wpa.qq.com/msgrd?v=3&uin=173708480&site=qq&menu=yes"
-        target="_blank"
-      >点击联系群主</el-link>
-      <el-button type="primary" size="mini" @click="openGoodsEdit('add')">点我登记</el-button>
+      <span style="color: red;">交易小心骗子</span>
+      <el-button type="primary" size="mini" @click="openGoodsEdit('add')">点我买卖登记</el-button>
     </el-row>
     <el-row type="flex" justify="center">
       <el-tabs
@@ -39,7 +24,7 @@
       >
         <el-tab-pane v-for="(item,index) in occList" :key="item" :label="item" :name="index+''" />
       </el-tabs>
-      <div style="width: 1200px;">
+      <div class="main-width">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="账号出售" name="1" />
           <el-tab-pane label="账号求购" name="2" />
@@ -65,7 +50,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="价格" sortable="custom" prop="price" width="200px">
+          <el-table-column label="价格" sortable="custom" prop="price" :width="device==='mobile'?'80px':'200px'">
             <template slot-scope="scope">
               <div>
                 <span v-if="scope.row.shop_price===0">私聊</span>
@@ -73,7 +58,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="250px">
+          <el-table-column v-if="device!='mobile'" label="操作" class="mobile-column-hide" width="250px">
             <template slot-scope="scope">
               <div>
                 <el-button type="primary" size="mini" @click="dataDetial(scope.row)">查看</el-button>
@@ -220,7 +205,10 @@ export default {
   computed: {
     userEmail(){
       return this.$store.state.user.userData.email
-    }
+    },
+    device() {
+      return this.$store.state.app.device
+    },
   },
   methods: {
    
