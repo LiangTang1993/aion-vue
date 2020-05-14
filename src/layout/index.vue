@@ -5,7 +5,8 @@
       <sidebar class="sidebar-container" />
       <el-row style="text-align:center;background:#cccccc;height:25px;vertical-align:middle;">
         <div style="height:25px;overflow:hidden">
-          <span style="line-height:25px;vertical-align:middle;">代充担保qq微信173708480交流群941524284</span>
+          <!-- <span style="line-height:25px;vertical-align:middle;">代充担保qq微信173708480交流群941524284</span> -->
+          <span style="line-height:25px;vertical-align:middle;">交流群941524284</span>
           <a
             target="_blank"
             href="//shang.qq.com/wpa/qunwpa?idkey=49c6e9b149ea3cff8f5fa744f83ee3b28bc96d1504f82fda0d75252504d1cc80"

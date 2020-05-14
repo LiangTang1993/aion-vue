@@ -27,6 +27,9 @@
           <el-form-item label="联系方式" prop="contact">
             <span>{{ formData.user_contact }}</span>
           </el-form-item>
+          <el-form-item label="价格" prop="contact">
+            <span>{{ formData.shop_price==0?'私聊':formData.shop_price }}</span>
+          </el-form-item>
           <el-form-item label="浏览次数" prop="click_num">
             <span>{{ formData.click_num }}</span>
           </el-form-item>

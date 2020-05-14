@@ -7,7 +7,8 @@ const getDefaultState = () => {
     token: getToken(),
     name: '',
     avatar: '',
-    userData: {}
+    userData: {},
+    server: 1
   }
 }
 
@@ -28,6 +29,9 @@ const mutations = {
   },
   SET_USERDATA: (state, data) => {
     state.userData = data
+  },
+  SET_SERVER: (state, server) => {
+    state.server = server
   }
 }
 
@@ -63,7 +67,8 @@ const actions = {
 
         commit('SET_USERDATA', data)
         commit('SET_NAME', username)
-        // commit('SET_AVATAR', avatar)
+        commit('SET_SERVER', data.user_server)
+        commit('SET_AVATAR', 'http://res.aionlegend.net/' + data.user_icon)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -92,6 +97,9 @@ const actions = {
       commit('RESET_STATE')
       resolve()
     })
+  },
+  setServer({ commit }, server) {
+    commit('SET_SERVER', server)
   }
 }
 

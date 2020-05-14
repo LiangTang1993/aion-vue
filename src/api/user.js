@@ -41,3 +41,12 @@ export function logout() {
     method: 'get'
   })
 }
+
+export function upDateUserInfo(data) {
+  return request({
+    // baseURL: 'http://132.232.32.8:9090/',
+    url: 'getUserInfo/',
+    method: 'post',
+    data: data
+  })
+}

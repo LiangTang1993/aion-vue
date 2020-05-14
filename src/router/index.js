@@ -42,11 +42,14 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
-    path: '/',
+    path: '/refresh',
+    component: () => import('@/views/aion/refresh/index'),
+    hidden: true
+  },
+  {
+    path: '/home',
     component: Layout,
-    redirect: '/home',
     meta: { title: '攻略' },
     children: [{
       path: 'home',
@@ -58,14 +61,14 @@ export const constantRoutes = [
   {
     path: '/gameRaiderss',
     component: Layout,
-    meta: { title: '攻略' },
+    meta: { title: 'aiondestiny' },
     redirect: '/gameRaiderss/grDestiny',
     children: [
       {
-        path: 'grGC',
-        name: 'grGC',
+        path: 'gr',
+        name: 'gr',
         component: () => import('@/views/aion/gameRaiders/gc/index'),
-        meta: { title: 'GC4.6' }
+        meta: { title: 'aiondestiny' }
       },
       {
         path: 'grDestiny',
@@ -84,31 +87,26 @@ export const constantRoutes = [
         name: 'vpn',
         component: () => import('@/views/aion/gameRaiders/vpn/index'),
         meta: { title: 'vpn' }
+      },
+      {
+        path: '/group',
+        name: 'group',
+        component: () => import('@/views/aion/group'),
+        meta: { title: '组队' }
       }
     ]
   },
   {
-    path: '/exchange',
+    redirect: '/ex',
+    path: '/',
     component: Layout,
     meta: { title: '交易' },
     children: [
       {
-        path: 'exDestiny',
-        name: 'exDestiny',
+        path: 'ex',
+        name: 'ex',
         component: () => import('@/views/aion/exchange/exchangeView'),
-        meta: { title: 'Destiny3.5' }
-      },
-      {
-        path: 'exMyAion',
-        name: 'exMyAion',
-        component: () => import('@/views/aion/exchange/exchangeView'),
-        meta: { title: 'MyAion4.6' }
-      },
-      {
-        path: 'exGC',
-        name: 'exGC',
-        component: () => import('@/views/aion/exchange/exchangeView'),
-        meta: { title: 'GC4.6' }
+        meta: { title: '交易' }
       },
       {
         path: '/accDetail',
@@ -119,19 +117,22 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'Example', icon: 'example' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/userinfo',
+    name: 'user',
+    meta: { title: '用户' },
+    hidden: true,
+    children: [
+      {
+        path: '/userinfo',
+        name: 'userinfo',
+        component: () => import('@/views/user/userInfo/index'),
+        meta: { title: '用户信息' }
+      }
+    ]
+  },
   //     {
   //       path: 'tree',
   //       name: 'Tree',

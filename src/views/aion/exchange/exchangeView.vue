@@ -30,10 +30,11 @@
           <el-tab-pane label="账号求购" name="2" />
           <el-tab-pane label="金币出售" name="3" />
           <el-tab-pane label="金币求购" name="4" />
-          <el-tab-pane label="需求服务" name="5" />
-          <el-tab-pane label="提供服务" name="6" />
+          <!-- <el-tab-pane label="需求服务" name="5" /> -->
+          <el-tab-pane label="代练" name="5" />
           <el-tab-pane v-if="userEmail==='173708480@qq.com'" label="点券充值" name="7" />
         </el-tabs>
+        <adminAddAcc />
         <el-table :data="tableData" @sort-change="sortMethod">
           <el-table-column label="标题" prop="name">
             <template slot-scope="scope">
@@ -62,8 +63,8 @@
             <template slot-scope="scope">
               <div>
                 <el-button type="primary" size="mini" @click="dataDetial(scope.row)">查看</el-button>
-                <el-button v-if="userEmail===scope.row.user_email" type="warning" size="mini" @click="edit(scope.row)">编辑</el-button>
-                <el-button v-if="userEmail===scope.row.user_email" type="danger" size="mini" @click="deleteGoods(scope.row)">删除</el-button>
+                <el-button v-if="userEmail===scope.row.user_email || userEmail==='173708480@qq.com'" type="warning" size="mini" @click="edit(scope.row)">编辑</el-button>
+                <el-button v-if="userEmail===scope.row.user_email || userEmail==='173708480@qq.com'" type="danger" size="mini" @click="deleteGoods(scope.row)">删除</el-button>
               </div>
             </template>
           </el-table-column>
@@ -79,7 +80,7 @@
           @current-change="handleCurrentChange"
           @size-change="handleSizeChange"
         />
-      </div>
+        </adminaddacc></div>
     </el-row>
     <goods-edit ref="goodsEdit" @refresh="init" />
   </div>
@@ -89,9 +90,10 @@
 /*eslint-disable*/
 import { data } from "./data/myaion";
 import goodsEdit from "./components/goodsEdit";
+import adminAddAcc from './components/adminAddAcc'
 import { insertGoods, selectGoods,updateGoods } from "@/api/aion/exchange.js";
 export default {
-  components: { goodsEdit },
+  components: { goodsEdit,adminAddAcc },
   data() {
     return {
       total: 0,
@@ -130,77 +132,6 @@ export default {
   },
   mounted() {
     this.init();
-    // if (destinyAl) {
-    //   switch (this.$route.name) {
-    //     case 'exDestiny':
-    //       destinyAl.forEach(e => {
-    //         if (!e.title) {
-    //           if (e.equipment1) {
-    //             e.equipment = e.equipment + ' ' + e.equipment1
-    //           }
-    //           if (e.equipment2) {
-    //             e.equipment = e.equipment + ' ' + e.equipment2
-    //           }
-    //           if (e.equipment3) {
-    //             e.equipment = e.equipment + ' ' + e.equipment3
-    //           }
-    //           e.title = e.occ + ' ' + e.gender + e.equipment
-    //           e.createTime = e.createTime.substring(0, 10)
-    //           e.price = parseInt(e.price)
-    //         }
-    //         if (e.price > 0) {
-
-    //           } else {
-    //             e.price = 0
-    //           }
-    //       });
-    //       this.alist = destinyAl
-    //       this.glist = destinyGl
-    //       this.type = 1
-    //       break
-    //     case 'exMyAion':
-    //       this.alist = myaionAl
-    //       this.glist = myaionGl
-    //       this.type = 2
-    //       break
-    //     case 'exGC':
-    //       this.alist = gcAl
-    //       this.glist = gcGl
-    //       this.type = 3
-    //       break
-    //     default:
-    //       break
-    //   }
-
-    //   this.tableData = this.alist
-    //   this.allData = JSON.parse(JSON.stringify(this.alist))
-    // }
-    // let temp = []
-    // data.forEach(e => {
-    //   let obj = {
-    //     server_id: 1, // 服务器id 1 aiondesnity 2 myaion 3 gc
-    //     name: this.occList[e.occ] +' ' + this.factionArr[e.faction] + e.equipment, // title 标题
-    //     shop_price: parseInt(e.shop_price), // 价格
-    //     goods_desc: '11', // 描述
-    //     occ: parseInt(e.occ), // 职业
-    //     goods_type: 1, // 商品类型 # 1 出售账号 2 收账号 3 出金币  4 收金币 5 需求服务 6 提供服务
-    //     faction: parseInt(e.faction), // 种族 1天族 2魔族
-    //     pvp: e.pvp,
-    //     equipment: e.equipment,
-    //     other: e.other,
-    //     user_contact: e.user_contact,
-    //     is_sell: true,
-    //     user_email: '空',
-    //     images: [],
-    //     user_email:'173708480@qq.com'
-    //   }
-    //   insertGoods(obj).then(res => {
-    //       if (res.status === 201) {
-    //         this.$message({ type: 'success', message: '创建成功！' })
-    //       }
-    //     })
-    // });
-    // console.log(temp);
   },
   computed: {
     userEmail(){
@@ -255,19 +186,7 @@ export default {
     },
     init() {
       this.tableData = []
-      switch (this.$route.name) {
-        case "exDestiny":
-          this.type = 1;
-          break;
-        case "exMyAion":
-          this.type = 2;
-          break;
-        case "exGC":
-          this.type = 3;
-          break;
-        default:
-          break;
-      }
+      this.type = this.$store.state.user.server
       this.goods_query.server_id = this.type;
       this.goods_query.goods_type = this.activeName;
       let param = {

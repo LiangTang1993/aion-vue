@@ -5,9 +5,11 @@
     element-loading-background="rgba(0, 0, 0, 0.8)"
   >
     <el-dialog
+      id="goods-edit-dia"
       title="买卖登记"
       :visible.sync="drawer"
       :destroy-on-close="true"
+      :append-to-body="true"
       :close-on-click-modal="false"
       width="900px"
       :before-close="handleClose"
@@ -16,24 +18,24 @@
         <el-form
           ref="ruleForm"
           :model="goods"
-          label-width="150px"
+          label-width="100px"
           :rules="rules"
         >
-          <el-form-item style="width:400px;display:inline-block" label="服务器">
-            <el-select v-model="goods.server_id" style="width:250px" placeholder>
+          <el-form-item class="goods-item-form" label="服务器">
+            <el-select v-model="goods.server_id" class="goods-item-form-select" placeholder>
               <el-option label="aiondestiny" :value="1" />
               <el-option label="myaion" :value="2" />
               <el-option label="gamecoast" :value="3" />
             </el-select>
           </el-form-item>
-          <el-form-item style="width:400px;display:inline-block" label="阵营">
-            <el-select v-model="goods.faction" style="width:250px" placeholder>
+          <el-form-item class="goods-item-form" label="阵营">
+            <el-select v-model="goods.faction" class="goods-item-form-select" placeholder>
               <el-option label="天族" :value="1" />
               <el-option label="魔族" :value="2" />
             </el-select>
           </el-form-item>
-          <el-form-item style="width:400px;display:inline-block" label="商品类型">
-            <el-select v-model="goods.goods_type" :disabled="type==='edit'" style="width:250px" placeholder>
+          <el-form-item class="goods-item-form" label="商品类型">
+            <el-select v-model="goods.goods_type" :disabled="type==='edit'" class="goods-item-form-select" placeholder>
               <el-option
                 v-for="(item,index) in goods_type"
                 :key="index"
@@ -42,12 +44,12 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item style="width:400px;display:inline-block" label="标题" prop="name">
+          <el-form-item class="goods-item-form" label="标题" prop="name">
             <el-input v-model="goods.name" type="textarea" :rows="2" placeholder />
           </el-form-item>
           <div v-if="goods.goods_type===1">
-            <el-form-item style="width:400px;display:inline-block" label="职业">
-              <el-select v-model="goods.occ" style="width:250px" placeholder>
+            <el-form-item class="goods-item-form" label="职业">
+              <el-select v-model="goods.occ" class="goods-item-form-select" placeholder>
                 <el-option
                   v-for="(item,index) in occArr"
                   :key="index"
@@ -56,7 +58,7 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item style="width:400px;display:inline-block" label="装备信息">
+            <el-form-item class="goods-item-form" label="装备信息">
               <el-input
                 v-model="goods.equipment"
                 type="textarea"
@@ -64,7 +66,7 @@
                 placeholder="包括羽毛 翅膀 所有你的装备，强化情况 魔石等等，最好写上面板信息"
               />
             </el-form-item>
-            <el-form-item style="width:400px;display:inline-block" label="pvp信息">
+            <el-form-item class="goods-item-form" label="pvp信息">
               <el-input
                 v-model="goods.pvp"
                 type="textarea"
@@ -72,7 +74,7 @@
                 placeholder="所有和pvp相关信息，比如 军衔obs，各种pvp勋章等等"
               />
             </el-form-item>
-            <el-form-item style="width:400px;display:inline-block" label="pvp信息">
+            <el-form-item class="goods-item-form" label="pvp信息">
               <el-input
                 v-model="goods.pvp"
                 type="textarea"
@@ -81,14 +83,14 @@
               />
             </el-form-item>
           </div>
-          <el-form-item style="width:400px;display:inline-block" label="其他">
+          <el-form-item class="goods-item-form" label="其他">
             <el-input v-model="goods.other" placeholder="其他信息" />
           </el-form-item>
-          <el-form-item style="width:400px;display:inline-block" label="联系方式">
+          <el-form-item class="goods-item-form" label="联系方式">
             <el-input v-model="goods.user_contact" placeholder="其他信息" />
           </el-form-item>
 
-          <el-form-item v-if="goods.goods_type===1" style="width:400px;display:inline-block" label="图片">
+          <el-form-item v-if="goods.goods_type===1" class="goods-item-form" label="图片">
             <el-upload
               ref="img"
               class="upload-demo"
@@ -104,8 +106,8 @@
               <div slot="tip" class="el-upload__tip">图片，最多五张，单个不超过150kb</div>
             </el-upload>
           </el-form-item>
-          <el-form-item style="width:400px;display:inline-block" label="价格（0=私聊）">
-            <el-input-number v-model="goods.shop_price" style="width:250px" placeholder="其他信息" />
+          <el-form-item class="goods-item-form" label="价格（0=私聊）">
+            <el-input-number v-model="goods.shop_price" class="goods-item-form-select" placeholder="其他信息" />
           </el-form-item>
           <el-form-item style="width:100%;display:inline-block">
             <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -132,7 +134,7 @@ export default {
   data() {
     return {
       drawer: false,
-      goods_type: ['出售账号', '收账号', '出金币', '收金币', '需求服务', '提供服务', '点券充值'],
+      goods_type: ['出售账号', '收账号', '出金币', '收金币', '代练'],
       occArr: ['守护星', '剑星', '魔道星', '精灵星', '杀星', '弓星', '治愈星', '护法星', '枪炮星', '机甲星', '吟游星', '彩绘星'],
       goods: {
         server_id: 1, // 服务器id 1 aiondesnity 2 myaion 3 gc
@@ -247,7 +249,7 @@ export default {
         this.fileList.forEach(file => {
           const folder = '/aionRes/seller/' + this.goods.id + '/'
           const filename = new Date().getTime() + '.' + file.name.split('.').reverse()[0]
-          if ((file.name.split('.').reverse()[0] === 'jpg' || file.name.split('.').reverse()[0] === 'png') && file.size / 1024 < 150) {
+          if ((file.name.split('.').reverse()[0] === 'jpg' || file.name.split('.').reverse()[0] === 'JPG' || file.name.split('.').reverse()[0] === 'JPEG' || file.name.split('.').reverse()[0] === 'jpeg' || file.name.split('.').reverse()[0] === 'png') && file.size / 1024 < 300) {
             this.uploadFile(folder, file, filename)
           } else {
             this.numFlag--
@@ -294,13 +296,8 @@ export default {
           _this.numFlag--
         }
       })
-    },
-
-    // DataURL转Blob
-    dataURLtoBlob(fileObj) {
-      console.log(fileObj.size)
-      return new Blob([fileObj], { type: fileObj.type })
     }
+
   }
 }
 </script>
@@ -314,5 +311,29 @@ export default {
 .drawer-div {
   height: calc(100vh - 80px);
   overflow-y: auto;
+}
+.goods-item-form{
+  width:400px;display:inline-block;
+  .goods-item-form-select{
+    width:250px;
+  }
+}
+.mobile {
+  #goods-edit-dia{
+    width: 100%;
+    .el-dialog{
+      width:100%!important
+    }
+  }
+  .goods-item-form{
+width:100%;display:inline-block;
+.goods-item-form-select{
+    width:auto;
+  }
+  .el-form-item__label{
+    width: 100px!important;
+  }
+  }
+
 }
 </style>

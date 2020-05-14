@@ -50,7 +50,7 @@
             <el-input
               ref="username"
               v-model="regForm.username"
-              placeholder="Username"
+              placeholder="账号"
               name="username"
               type="text"
               tabindex="1"
@@ -66,7 +66,7 @@
               :key="passwordType"
               ref="password"
               v-model="regForm.password"
-              placeholder="Password"
+              placeholder="密码"
               name="password"
               tabindex="2"
             />
@@ -159,6 +159,13 @@ export default {
       immediate: true
     }
   },
+  mounted() {
+    if (this.$route.query.type === '1') {
+      this.activeName = 'login'
+    } else {
+      this.activeName = 'regist'
+    }
+  },
   methods: {
     showPwd() {
       if (this.passwordType === 'password') {
@@ -238,7 +245,12 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
-
+  .el-tabs__item{
+    color: white;
+  }
+  .is-active{
+      color:#409eff
+    }
   .el-input {
     display: inline-block;
     height: 47px;

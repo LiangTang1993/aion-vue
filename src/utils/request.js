@@ -14,7 +14,6 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
@@ -62,7 +61,7 @@ service.interceptors.response.use(
       504: '网关超时。'
     }
     // if the custom code is not 20000, it is judged as an error.
-    if (res.status !== 200 && res.status !== 201) {
+    if (res.status !== 200 && res.status !== 201 && res.status !== 204 && res.status !== 202) {
       Message({
         message: codeMessage[res.status] || 'Error',
         type: 'error',
@@ -82,15 +81,23 @@ service.interceptors.response.use(
           })
         })
       }
-      return Promise.reject(new Error(res.message || 'Error'))
+      let message = 'Error'
+      if (res.message && res.message.length < 100) {
+        message = res.message
+      }
+      return Promise.reject(new Error(message || 'Error'))
     } else {
       return res
     }
   },
   (error, e) => {
     console.log('err' + error) // for debug
+    let errs = '请求错误！'
+    if (error.response.data.length < 100) {
+      errs = error.response.data
+    }
     Message({
-      message: error.response.data,
+      message: errs,
       type: 'error',
       duration: 5 * 1000
     })
