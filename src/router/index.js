@@ -61,14 +61,14 @@ export const constantRoutes = [
   {
     path: '/gameRaiderss',
     component: Layout,
-    meta: { title: 'aiondestiny' },
+    meta: { title: '攻略' },
     redirect: '/gameRaiderss/grDestiny',
     children: [
       {
         path: 'gr',
         name: 'gr',
         component: () => import('@/views/aion/gameRaiders/gc/index'),
-        meta: { title: 'aiondestiny' }
+        meta: { title: 'gc4.6' }
       },
       {
         path: 'grDestiny',

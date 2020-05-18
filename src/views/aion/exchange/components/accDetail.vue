@@ -2,7 +2,12 @@
   <div>
     <el-row type="flex" justify="center" class="form-nobt">
       <div style="width:1200px;font-size: 20px;">
-        <el-form :model="formData" label-width="100px" class="main-width" style="font-size: 20px;">
+        <el-form v-if="formData.fav_num > 2" :model="formData" label-width="100px" class="main-width" style="font-size: 20px;">
+          <el-form-item v-for="item in dataArr" :key="item.label" :label="item.label">
+            <span>{{ item.value }}</span>
+          </el-form-item>
+        </el-form>
+        <el-form v-else :model="formData" label-width="100px" class="main-width" style="font-size: 20px;">
           <el-form-item label="标题" prop="name">
             <span>{{ formData.name }}</span>
           </el-form-item>
@@ -58,14 +63,30 @@ export default {
       alist: [],
       type: '',
       servers: ['', 'destiny', 'myaion', 'gc'],
-      imgArr: []
+      imgArr: [],
+      dataArr: []
     }
   },
   mounted() {
     this.type = this.$route.query.type
     this.id = this.$route.query.id
     getGoodsItem(this.id).then(res => {
-      this.formData = res.data
+      if (res.data.fav_num > 2) {
+        const obj = JSON.parse(res.data.goods_desc)
+        this.formData = res.data
+        this.dataArr = [{ label: '标题', value: res.data.name }]
+        for (const key in obj) {
+          const item = {}
+          if (key !== "'提交者'" && key !== "'提交时间'") {
+            item.label = key.replace("'", '')
+            item.value = obj[key]
+            this.dataArr.push(item)
+          }
+        }
+        this.dataArr.push({ label: '浏览次数', value: res.data.click_num })
+      } else {
+        this.formData = res.data
+      }
       res.data.images.forEach(e => {
         this.imgArr.push('http://res.aionlegend.net' + e.image)
       })

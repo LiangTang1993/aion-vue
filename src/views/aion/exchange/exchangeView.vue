@@ -34,7 +34,7 @@
           <el-tab-pane label="代练" name="5" />
           <el-tab-pane v-if="userEmail==='173708480@qq.com'" label="点券充值" name="7" />
         </el-tabs>
-        <adminAddAcc />
+        <adminAddAcc v-if="userEmail==='173708480@qq.com'" />
         <el-table :data="tableData" @sort-change="sortMethod">
           <el-table-column label="标题" prop="name">
             <template slot-scope="scope">
@@ -80,7 +80,7 @@
           @current-change="handleCurrentChange"
           @size-change="handleSizeChange"
         />
-        </adminaddacc></div>
+      </div>
     </el-row>
     <goods-edit ref="goodsEdit" @refresh="init" />
   </div>
@@ -131,6 +131,7 @@ export default {
     };
   },
   mounted() {
+    this.$message({message:'看右上角切换服务器！！！看右上角切换服务器！！！',type:'info',duration:2000});
     this.init();
   },
   computed: {

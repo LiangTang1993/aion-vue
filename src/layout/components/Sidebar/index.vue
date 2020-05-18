@@ -19,7 +19,7 @@
             <sidebar-item v-for="route in routes" :key="route.path" style="float:left" :item="route" :base-path="route.path" />
           </el-menu>
         </el-scrollbar>
-        <div class="right-menu">
+        <div v-if="device!='mobile'" class="right-menu">
           <!-- <el-button v-if="!userData.username" type="text" class="login-btn" @click="login">登陆</el-button>
           <el-button v-if="!userData.username" type="text" class="login-btn" @click="login">注册</el-button> -->
           <!-- <el-link v-if="!userData.username" style="font-size:20px;color:#d07c35;margin:15px 10px 0 0" :underline="false" @click="login">登陆</el-link> -->

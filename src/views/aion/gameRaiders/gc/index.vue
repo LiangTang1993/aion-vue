@@ -1,11 +1,13 @@
 <template>
   <div style="width: 100%;">
     <el-row type="flex" justify="center">
-      <el-tabs v-model="activeName" tab-position="left" style="height: 200px;" @tab-click="changePdf">
+      <el-tabs v-model="activeName" tab-position="top" @tab-click="changePdf">
         <el-tab-pane label="下载注册" name="下载注册" />
         <el-tab-pane label="天族升级" name="天族升级" />
         <el-tab-pane label="魔族升级" name="魔族升级" />
       </el-tabs>
+    </el-row>
+    <el-row type="flex" justify="center">
       <iframe :src="pdfFile" frameborder="0" class="pdf-iframe" />
     </el-row>
   </div>
